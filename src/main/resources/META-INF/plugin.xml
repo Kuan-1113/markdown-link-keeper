@@ -1,0 +1,64 @@
+<idea-plugin>
+    <!-- ⚠⚠ 這個 id 在首次發布之後就永久固定，不能再改。送審前務必確認。 -->
+    <id>io.github.kuan1113.mdlinkkeeper</id>
+
+    <name>Markdown Link Keeper</name>
+
+    <!-- ⚠ 這個 email 會公開顯示在商店頁面上，任何人都看得到。
+         若之後想改成對外專用信箱，改這一行再重新上傳新版本即可（email 可以改，id 不行）。 -->
+    <vendor email="b0975910690@gmail.com" url="https://github.com/Kuan-1113">KUAN</vendor>
+
+    <!-- ⚠ JetBrains 規定：description 必須以拉丁字母開頭、至少 40 字元。
+         中文開頭會被 Plugin Verifier 判為 invalid，上架直接退件。 -->
+    <description><![CDATA[
+      <p><b>Keeps your Markdown links working when files move.</b></p>
+      <p>When you move or rename a file, this plugin automatically updates every
+      relative Markdown link that pointed to it, across the whole project.
+      The change is a single undoable command, so one Ctrl+Z reverts it.</p>
+      <p>The bundled Markdown support only highlights a broken link once you open
+      the file that contains it. In a documentation set with hundreds of pages,
+      moving one file silently breaks links scattered everywhere.</p>
+      <ul>
+        <li><b>Automatic link updates</b> on file move and rename</li>
+        <li><b>Project-wide scan</b> listing every link that points to a missing file</li>
+        <li>Never touches external URLs, mailto links, anchors, or fenced code blocks</li>
+      </ul>
+      <hr/>
+      <p><b>搬檔案時，自動修好所有指向它的 Markdown 連結。</b></p>
+      <p>內建的 Markdown 支援只會在你打開某個檔案時標出壞連結。一個上百份文件的
+      專案，搬動一個檔案會弄壞散落各處的連結，而你不會知道。</p>
+      <ul>
+        <li>檔案搬移或改名時，自動更新所有指向它的相對連結（可用 Ctrl+Z 復原）</li>
+        <li>一鍵掃描全專案，列出所有指向不存在檔案的連結</li>
+        <li>絕不動到外部網址、mailto、錨點，以及程式碼區塊裡的連結</li>
+      </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      <h3>0.1.0</h3>
+      <ul>
+        <li>Automatically update Markdown links when a file is moved or renamed</li>
+        <li>Project-wide scan for links pointing to missing files</li>
+      </ul>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="Markdown Link Updates" displayType="BALLOON"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="io.github.kuan1113.mdlinkkeeper.MarkdownLinkUpdater"
+                  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+    </applicationListeners>
+
+    <actions>
+        <action id="io.github.kuan1113.mdlinkkeeper.CheckMarkdownLinksAction"
+                class="io.github.kuan1113.mdlinkkeeper.CheckMarkdownLinksAction"
+                text="檢查 Markdown 連結"
+                description="Find markdown links pointing to missing files">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>

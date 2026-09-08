@@ -1,0 +1,9 @@
+.gradle/
+build/
+.intellijPlatform/
+.idea/
+*.iml
+out/
+
+# 本機驗證產物
+*.hprof
