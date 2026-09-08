@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Markdown Link Keeper — project scan</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700&display=swap">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1600px;height:900px;background:#1E1F22;color:#DFE1E5;
+       font-family:Inter,-apple-system,"Segoe UI",sans-serif;
+       display:flex;flex-direction:column;padding:56px 64px;gap:34px}
+  h1{font-size:44px;font-weight:700;letter-spacing:-.02em;color:#FFFFFF}
+  .sub{font-size:20px;color:#9DA0A8;max-width:1050px;line-height:1.5;margin-top:10px}
+  .body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-content:center}
+
+  .panel{background:#2B2D30;border:1px solid #393B40;border-radius:10px;overflow:hidden}
+  .ptitle{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+          color:#8A8D94;padding:16px 20px;border-bottom:1px solid #393B40}
+  .rows{padding:8px 0;font-family:"JetBrains Mono",monospace;font-size:17px}
+  .r{display:flex;gap:14px;padding:11px 20px;align-items:baseline}
+  .r+.r{border-top:1px solid #313337}
+  .loc{color:#6E7178;min-width:186px}
+  .tgt{color:#F2837F}
+  .ok{color:#7DCB8A}
+  .lbl{color:#BCBEC4}
+
+  .skip .r{color:#8A8D94}
+  .skiptgt{color:#548AF7}
+  .tag{font-size:12px;font-weight:700;color:#7DCB8A;background:#26382B;
+       padding:3px 9px;border-radius:4px;margin-left:auto}
+
+  .foot{display:flex;align-items:center;gap:14px;font-size:17px;color:#8A8D94}
+  .dot{width:6px;height:6px;border-radius:50%;background:#4A4D53}
+</style>
+
+<div>
+  <h1>Find every broken link before your readers do.</h1>
+  <p class="sub">One scan across the whole project. The bundled Markdown support only flags a broken
+     link once you open the file that contains it.</p>
+</div>
+
+<div class="body">
+  <div class="panel">
+    <div class="ptitle">Reported — target file does not exist</div>
+    <div class="rows">
+      <div class="r"><span class="loc">index.md:7</span><span class="lbl">[Setup]</span><span class="tgt">./setup.md</span></div>
+      <div class="r"><span class="loc">index.md:8</span><span class="lbl">[Folder]</span><span class="tgt">./missing/page.md</span></div>
+      <div class="r"><span class="loc">index.md:9</span><span class="lbl">[Parent]</span><span class="tgt">../outside.md</span></div>
+      <div class="r"><span class="loc">index.md:10</span><span class="lbl">[Anchor]</span><span class="tgt">./gone.md#section</span></div>
+      <div class="r"><span class="loc">index.md:11</span><span class="lbl">[Spaces]</span><span class="tgt">./my%20notes.md</span></div>
+      <div class="r"><span class="loc">guide/intro.md:4</span><span class="lbl">[Next]</span><span class="tgt">./chapter2.md</span></div>
+    </div>
+  </div>
+
+  <div class="panel skip">
+    <div class="ptitle">Correctly ignored — never false positives</div>
+    <div class="rows">
+      <div class="r"><span class="lbl">existing file</span><span class="skiptgt">./intro.md</span><span class="tag">SKIP</span></div>
+      <div class="r"><span class="lbl">parent file</span><span class="skiptgt">../index.md</span><span class="tag">SKIP</span></div>
+      <div class="r"><span class="lbl">external URL</span><span class="skiptgt">https://…</span><span class="tag">SKIP</span></div>
+      <div class="r"><span class="lbl">mailto</span><span class="skiptgt">mailto:…</span><span class="tag">SKIP</span></div>
+      <div class="r"><span class="lbl">pure anchor</span><span class="skiptgt">#section</span><span class="tag">SKIP</span></div>
+      <div class="r"><span class="lbl">inside ``` fence</span><span class="skiptgt">./example.md</span><span class="tag">SKIP</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <span>Runs in the background</span><span class="dot"></span>
+  <span>cancellable</span><span class="dot"></span>
+  <span>never freezes the IDE</span>
+</div>

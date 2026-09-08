@@ -1,0 +1,98 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Markdown Link Keeper — before / after</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700&display=swap">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1600px;height:900px;background:#1E1F22;color:#DFE1E5;
+       font-family:Inter,-apple-system,"Segoe UI",sans-serif;
+       display:flex;flex-direction:column;padding:56px 64px;gap:34px}
+  .head{display:flex;flex-direction:column;gap:10px}
+  h1{font-size:44px;font-weight:700;letter-spacing:-.02em;color:#FFFFFF}
+  .sub{font-size:20px;color:#9DA0A8;max-width:1000px;line-height:1.5}
+  .grid{display:grid;grid-template-columns:340px 1fr;gap:34px;flex:1;min-height:0}
+
+  .panel{background:#2B2D30;border:1px solid #393B40;border-radius:10px;
+         display:flex;flex-direction:column;overflow:hidden}
+  .ptitle{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+          color:#8A8D94;padding:16px 20px;border-bottom:1px solid #393B40}
+  .pbody{padding:18px 20px;font-family:"JetBrains Mono",monospace;font-size:17px;line-height:2}
+
+  .tree .row{display:flex;align-items:center;gap:8px;color:#BCBEC4}
+  .tree .ind{padding-left:24px}
+  .tree .ind2{padding-left:48px}
+  .dir{color:#8A8D94}
+  .moved{color:#3574F0;font-weight:700}
+  .arrow{color:#5FB865;font-weight:700;font-size:15px;margin-left:6px}
+
+  .codes{display:grid;grid-template-rows:auto auto;gap:22px;align-content:center}
+  .code{background:#2B2D30;border:1px solid #393B40;border-radius:10px;
+        display:flex;flex-direction:column;overflow:hidden}
+  .chead{display:flex;align-items:center;gap:12px;padding:14px 20px;
+         border-bottom:1px solid #393B40}
+  .badge{font-size:12px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:4px}
+  .b-before{background:#4A2C2A;color:#F2837F}
+  .b-after{background:#26382B;color:#7DCB8A}
+  .fname{font-family:"JetBrains Mono",monospace;font-size:15px;color:#9DA0A8}
+  .cbody{padding:16px 20px;font-family:"JetBrains Mono",monospace;font-size:18px;line-height:1.9}
+  .txt{color:#BCBEC4}
+  .lnk{color:#548AF7}
+  .old{color:#F2837F;text-decoration:line-through;text-decoration-thickness:2px}
+  .new{color:#7DCB8A;font-weight:700}
+  .note{color:#6E7178;font-size:15px;margin-left:10px}
+
+  .foot{display:flex;align-items:center;gap:14px;font-size:17px;color:#8A8D94}
+  .dot{width:6px;height:6px;border-radius:50%;background:#4A4D53}
+</style>
+
+<div class="head">
+  <h1>Move a file. Your links follow.</h1>
+  <p class="sub">Every relative Markdown link that pointed to the file is updated across the whole project —
+     as one undoable command.</p>
+</div>
+
+<div class="grid">
+  <div class="panel tree">
+    <div class="ptitle">Project</div>
+    <div class="pbody">
+      <div class="row dir">docs/</div>
+      <div class="row ind dir">install/</div>
+      <div class="row ind2 moved">setup.md <span class="arrow">← moved here</span></div>
+      <div class="row ind">guide.md</div>
+      <div class="row ind">index.md</div>
+      <div class="row ind dir">api/</div>
+      <div class="row ind2">reference.md</div>
+    </div>
+  </div>
+
+  <div class="codes">
+    <div class="code">
+      <div class="chead">
+        <span class="badge b-before">BEFORE</span>
+        <span class="fname">docs/guide.md</span>
+      </div>
+      <div class="cbody">
+        <div class="txt">Installation steps are in <span class="lnk">[Setup](<span class="old">./setup.md</span>)</span>.</div>
+        <div class="note">↑ now broken — nothing tells you</div>
+      </div>
+    </div>
+
+    <div class="code">
+      <div class="chead">
+        <span class="badge b-after">AFTER</span>
+        <span class="fname">docs/guide.md</span>
+      </div>
+      <div class="cbody">
+        <div class="txt">Installation steps are in <span class="lnk">[Setup](<span class="new">./install/setup.md</span>)</span>.</div>
+        <div class="note">↑ fixed automatically — Ctrl+Z to revert</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <span>Never touches external URLs</span><span class="dot"></span>
+  <span>mailto: links</span><span class="dot"></span>
+  <span>anchors</span><span class="dot"></span>
+  <span>fenced code blocks</span>
+</div>
